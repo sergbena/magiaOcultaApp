@@ -1,0 +1,38 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>
+      <span style="color: #904Ab0">{{data.titulo}}</span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button style="color: #696969" (click)="openlink(data.blog)">
+        Ir al blog
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background: #ffffff;">
+  <ion-card>
+    <ion-card-content [innerHtml]="data.contenido" style="text-align: justify;">
+    </ion-card-content>
+  </ion-card>
+  <div padding >
+    <ion-badge *ngFor="let term of data.categorias" style="margin-right: 1%; margin-bottom: 1%">{{term}}</ion-badge>
+  </div>
+  <!--<div style="position: absolute; top: 3%; right: 5%">-->
+    <!--<ion-icon name="star" style="color: #fff33e; width: 1%"></ion-icon>-->
+  <!--</div>-->
+  <ion-buttons style="position: absolute; top: 0%; right: 3%;">
+    <button ion-button clear large>
+      <ion-icon name="star" color="fav" *ngIf="visible" (click)="estrella(data)"></ion-icon>
+      <ion-icon name="ios-star-outline" color="fav" *ngIf="!visible" (click)="estrella(data)"></ion-icon>
+    </button>
+  </ion-buttons>
+
+
+<!--<div [innerHtml]="data.contenido"></div>-->
+</ion-content>fff33e

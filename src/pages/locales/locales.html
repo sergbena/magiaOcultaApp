@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <span style="color: #904Ab0" >Magia Oculta</span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="changeHome()">
+        <ion-icon name="ios-list" ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background: #f7f7ff;">
+  <ion-list *ngIf="entradas.length>0">
+    <ion-item *ngFor="let d of entradas" style="background: #f7f7ff;" (click)="cambiar(d)">
+
+      <ion-thumbnail item-start>
+        <img src="{{d.imagen}}">
+      </ion-thumbnail>
+      <h2 style="overflow: hidden; text-overflow: ellipsis;">{{d.titulo}}</h2>
+      <p>{{d.publicado}}</p>
+      <!--<button ion-button clear item-end>View</button>-->
+    </ion-item>
+  </ion-list>
+
+  <div *ngIf="entradas.length==0" style="height: 100%">
+    <h2 style="text-align: center; color: gray">No tiene ninguna entrada guardada</h2>
+  </div>
+
+</ion-content>

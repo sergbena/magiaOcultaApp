@@ -1,14 +1,31 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      <span style="color: #904Ab0">Magia Oculta</span>
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="changeLocal()">
+        <ion-icon name="star" color="fav"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let d of entradas" style="background: #f7f7ff; z-index: 1;" (click)="cambiar(d)">
+
+      <ion-thumbnail item-start>
+        <img src="{{d.imagen}}">
+      </ion-thumbnail>
+      <h2 style="overflow: hidden; text-overflow: ellipsis;">{{d.titulo}}</h2>
+      <p>{{d.publicado}}</p>
+      <!--<button ion-button clear item-end>View</button>-->
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>
