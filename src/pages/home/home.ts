@@ -22,6 +22,7 @@ export class HomePage {
   num:number;
   entradas: any;
   start:any;
+  fail:any=false;
 // +'&maxResults=nº'
   constructor(public navCtrl: NavController,
               public http: Http,
@@ -49,7 +50,7 @@ export class HomePage {
   ionViewDidLoad(){
 
     this.http.get(this.urlp).map(res=>res.json()).subscribe(data=>{
-
+      this.fail=false;
       // console.log(data.feed.entry);
 
       for( var datos of data.feed.entry){
@@ -76,7 +77,10 @@ export class HomePage {
       }
       // console.log(this.entradas);
 
-    });
+    },
+      err=>{
+        this.fail=true;
+      });
   }
 
   doInfinite(infiniteScroll){
@@ -86,6 +90,7 @@ export class HomePage {
 
     setTimeout(()=>{
       this.http.get(direccion).map(res=>res.json()).subscribe(data=>{
+          this.fail=false;
         // console.log(data.feed.entry);
         for( var datos of data.feed.entry){
           var campos={};
@@ -109,17 +114,25 @@ export class HomePage {
           this.entradas.push(campos);
         }
         // console.log(this.entradas);
-      });
+      },
+        err=>{
+          this.fail=true;
+        });
       infiniteScroll.complete();
     },500);
 
   }
 
   getFecha (fecha){
-    var f=fecha.split('T');
-    var realojo=f[0].split('-');
-    var publicacion= realojo[2]+'/'+realojo[1]+'/'+realojo[0];
-    return publicacion;
+    if (fecha){
+      var f=fecha.split('T');
+      var realojo=f[0].split('-');
+      var publicacion= realojo[2]+'/'+realojo[1]+'/'+realojo[0];
+      return publicacion;
+    }else{
+      return ""
+    }
+
   }
 
   cambiar(item){
@@ -128,11 +141,16 @@ export class HomePage {
 
   getCategorias(item){
 
-    var cate=[];
-    for(var t of item){
-      cate.push(t.term)
+    if(item){
+      var cate=[];
+      for(var t of item){
+        cate.push(t.term);
+      }
+      return cate;
+    }else {
+      return "";
     }
-    return cate;
+
   }
 
   getImagen(item){
@@ -141,7 +159,8 @@ export class HomePage {
   }
 
   createUrl(id,num,key,init){
-    return 'https://www.blogger.com/feeds/'+id+'/posts/default?alt=json&max-results='+num+'&key='+key+'&start-index='+init;
+    return 'https://www.blogger.com/feeds/'+id+'/posts/';
+    // return 'https://www.blogger.com/feeds/'+id+'/posts/default?alt=json&max-results='+num+'&key='+key+'&start-index='+init;
   }
 
   changeLocal(){

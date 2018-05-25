@@ -11,8 +11,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
+<ion-content style="background-color: #f7f7ff;">
+  <ion-list *ngIf="!fail">
     <ion-item *ngFor="let d of entradas" style="background: #f7f7ff; z-index: 1;" (click)="cambiar(d)">
 
       <ion-thumbnail item-start>
@@ -24,8 +24,13 @@
     </ion-item>
   </ion-list>
 
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!fail">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
+
+  <div *ngIf="fail" style="width: 100%; height: 100%">
+    <h1 style="text-align: center; margin-top: 50%;">Fallo de conexion</h1>
+    <h3 style="text-align: center">Por favor, intentelo más tarde</h3>
+  </div>
 
 </ion-content>
