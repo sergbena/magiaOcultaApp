@@ -159,8 +159,8 @@ export class HomePage {
   }
 
   createUrl(id,num,key,init){
-    return 'https://www.blogger.com/feeds/'+id+'/posts/';
-    // return 'https://www.blogger.com/feeds/'+id+'/posts/default?alt=json&max-results='+num+'&key='+key+'&start-index='+init;
+    // return 'https://www.blogger.com/feeds/'+id+'/posts/';
+    return 'https://www.blogger.com/feeds/'+id+'/posts/default?alt=json&max-results='+num+'&key='+key+'&start-index='+init;
   }
 
   changeLocal(){
